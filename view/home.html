@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title> My first Nodejs website</title>
+        <script src = "https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src = "./../public/js/script.js"></script>
+    </head>
+    <body onload = "getUser()">
+        <p> Hello! <span class = "username"></span>! </p>
+        <p> <a href = "/logout">Logout</a></p>
+            <form>
+                <p>Add more to list: <input type = "text", class = "details"/> </p>
+                <p>Public post? <input type = "checkbox" class = "isPublic" /> </p>
+                <input type = "button" onclick = "addItem()" value = "Add to List"/>
+            </form>
+        <table border = "1px" width = "100%" id = "itemtable">
+            <tr>
+                <th>Id</th>
+                <th>Details</th>
+                <th>Post Time</th>
+                <th>Edit Time</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Public Post</th>
+            </tr>
+        </table>
+    </body>
+</html>
