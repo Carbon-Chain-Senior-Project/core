@@ -1,2 +1,7 @@
 #ignoring node_modules
 /node_modules
+
+#just gonna ignore package-lock.json
+/package-lock.json
+
+#will need to add config and ignore that aswell, but infuture
