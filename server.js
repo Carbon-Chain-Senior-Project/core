@@ -60,7 +60,7 @@ mongoose.connect(url, function(err){
  */
 //require models
 require('./models/User');
-require('./models/item');
+
 
 
 const bc = require('./controllers/main');

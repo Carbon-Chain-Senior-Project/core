@@ -11,7 +11,7 @@ may want to move all these down into a separate api folder
 */
 router.use(require('./register'));
 router.use(require('./login'));
-router.use(require('./item'));
+
 router.use(require('./blockchain'));
 
 

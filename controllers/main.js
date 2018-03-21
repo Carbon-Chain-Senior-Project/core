@@ -1,11 +1,11 @@
 const SHA256 = require('crypto-js/sha256');
-const bc= require('express').Router();
+//const bc= require('express').Router();
 
 class Transaction{
     constructor(fromAddress, toAddress, amount){
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
-        this.amount = amount;
+        this.amount = Number(amount);
     }
 }
 
@@ -68,7 +68,7 @@ class Blockchain {
 
                 }
                 if(trans.toAddress === address){
-                    balance += trans.amount;
+                    balance = trans.amount + balance;
                 }
             }
         }
