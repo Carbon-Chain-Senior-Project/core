@@ -71,6 +71,27 @@ function getUser(){
         alert("Cannot fetch data. please try again or cry");
     });
 }
+
+function getBalance(){
+    var account = document.getElementsByClassName("account");
+
+    $.ajax({
+        url: url + "/balance",
+        method: "post",
+        data: {
+            account: account[0].value
+        }
+    }).success(function(response){
+        console.log(account + "has a balance of " + response.balance + "CarbonLinks");
+        document.getElementsByClassName("balance")[0].innerHTML = response.balance;
+    }).error(function(response){
+        //handle case for account not existing in blockchain thus balance is zero, 
+        //there could be other eeros
+        console.log(account + "is not in chain, and balance is 0");
+        document.getElementsByClassName("balance")[0].innerHTML = 0;
+    });
+}
+/*
 function editItem(id) {
     var details = prompt("please enter new details (" + id + ")", "");
 
@@ -178,4 +199,4 @@ function addItem(){
         }).error(function(response){
             alert("Cannot fetch data. please try again or cry");
         });
-}
+}*/

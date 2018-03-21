@@ -17,7 +17,7 @@ const cookieSession = require('cookie-session')
 //bodyparsers
 
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 
 
@@ -29,7 +29,7 @@ app.use(cookieSession({
 }));
 
 app.use('/view',express.static(path.join(__dirname + './view/')));
-app.use('/public',express.static(path.join(__dirname +'/public')));
+app.use('/controllers',express.static(path.join(__dirname +'/controllers')));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -61,7 +61,26 @@ mongoose.connect(url, function(err){
 //require models
 require('./models/User');
 require('./models/item');
-var routes = require('./routes/');
+
+
+const bc = require('./controllers/main');
+
+let cChain = new bc.Blockchain();
+app.locals.cChain = cChain;
+console.log("block successfully started");
+//first is sender second is receiver
+
+cChain.createTransaction(new bc.Transaction('address1','address2',100));
+cChain.createTransaction(new bc.Transaction('address2','address1',50));
+
+cChain.minePendingTransactions('address1');
+
+console.log('\n poops balance is ' + cChain.getBalanceOfAddress('poopsaddress'));
+console.log('going again');
+cChain.minePendingTransactions('poopsaddress');
+console.log('\n poops balance is ' + cChain.getBalanceOfAddress('address1'));
+
+let  routes = require('./routes/');
 app.use(routes);
 
 
