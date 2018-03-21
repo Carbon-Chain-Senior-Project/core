@@ -70,6 +70,7 @@ app.locals.cChain = cChain;
 console.log("block successfully started");
 //first is sender second is receiver
 
+/*
 cChain.createTransaction(new bc.Transaction('address1','address2',100));
 cChain.createTransaction(new bc.Transaction('address2','address1',50));
 
@@ -79,7 +80,7 @@ console.log('\n poops balance is ' + cChain.getBalanceOfAddress('poopsaddress'))
 console.log('going again');
 cChain.minePendingTransactions('poopsaddress');
 console.log('\n poops balance is ' + cChain.getBalanceOfAddress('address1'));
-
+*/
 let  routes = require('./routes/');
 app.use(routes);
 

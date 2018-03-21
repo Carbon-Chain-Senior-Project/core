@@ -9,6 +9,13 @@ class Transaction{
     }
 }
 
+class POP{
+    constructor(customerAddress, businessAddress, amount){
+        this.customerAddress = customerAddress;
+        this.businessAddress = businessAddress;
+        this.amount = Number(amount);
+    }
+}
 
 class Block {
     constructor(timestamp, transactions, previousHash = ''){
@@ -35,6 +42,13 @@ class Blockchain {
     constructor(){
         this.chain = [this.createGenesisBlock()];
         this.difficulty = 2;
+        
+        
+        //total number of pop need to create new block
+        this.popLimit = 100
+        this.current = 0;
+        this.pendingPOP = [];
+       
         this.pendingTransactions = [];
         this.miningReward = 100000;
     }
@@ -45,19 +59,40 @@ class Blockchain {
     getLatestBlock(){
         return this.chain[this.chain.length -1];
     }
-    minePendingTransactions(miningRewardAddress)  {
+    minePendingTransactions()  {
         //This doesn't work on larger blockchains since you can't load in the massive number of transactions into each block
         let block = new Block(Date.now(),this.pendingTransactions);
         block.mineBlock(this.difficulty);
         console.log('block mined')
         this.chain.push(block);
         //reset pending transactions
+
+        //distribute pop rewards here
         this.pendingTransactions = [
-            new Transaction(null, miningRewardAddress, this.miningReward)
         ];
+        for(let i = 0; i < this.pendingPOP.length; i++){
+            let contributionRatio = this.pendingPOP[i].amount / this.current;
+            console.log(contributionRatio);
+            let reward = contributionRatio * this.miningReward;
+            console.log(reward);
+            console.log(this.pendingPOP[i].customerAddress);
+            this.pendingTransactions.push( new Transaction(null, this.pendingPOP[i].customerAddress, Math.floor(contributionRatio * this.miningReward)));
+            
+        }
+        this.current = 0;
+        this.pendingPOP = [];
     }
     createTransaction(transaction){
         this.pendingTransactions.push(transaction);
+    }
+    addPOP(POP){
+        this.pendingPOP.push(POP);
+        this.current += POP.amount;
+
+        if(this.current >= this.popLimit){
+            this.minePendingTransactions();
+        }
+        //check to see if difficulty has been met        
     }
     getBalanceOfAddress(address){
         let balance = 0;
@@ -106,7 +141,8 @@ console.log('\n poops balance is ' + cChain.getBalanceOfAddress('address1'));
 */
 module.exports = {
     Blockchain: Blockchain,
-    Transaction: Transaction
+    Transaction: Transaction,
+    POP: POP
 }
 
 

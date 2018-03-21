@@ -78,9 +78,9 @@ function addPOP(){
         url: url + "/pop",
         method: "post",
         data: {
-            cutomer: customer[0].value,
+            customer: customer[0].value,
             business: business[0].value,
-            amount: num(amount[0].value)
+            amount: amount[0].value
         }
     }).success(function(reponse){
         alert(reponse.message);

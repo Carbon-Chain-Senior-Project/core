@@ -17,7 +17,12 @@ router.post('/balance', function(req, res, next){
 
 router.post('/transaction', function(req, res, next){
     req.app.locals.cChain.createTransaction(new bc.Transaction(req.body.sender, req.body.recipent, req.body.amount));
-    req.app.locals.cChain.minePendingTransactions("address1");
     res.json({message: "transaction posted successfully"});
-})
+});
+
+router.post('/pop', function(req, res, next){
+    console.log(req.body.customer);
+    req.app.locals.cChain.addPOP(new bc.POP(req.body.customer, req.body.business, req.body.amount));
+    res.json({message : "pop posted successfully"});
+});
 module.exports = router;
