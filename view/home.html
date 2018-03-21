@@ -2,26 +2,35 @@
     <head>
         <title> My first Nodejs website</title>
         <script src = "https://code.jquery.com/jquery-2.2.4.min.js"></script>
-        <script src = "./../public/js/script.js"></script>
+        <script src = "./../controllers/script.js"></script>
     </head>
     <body onload = "getUser()">
         <p> Hello! <span class = "username"></span>! </p>
         <p> <a href = "/logout">Logout</a></p>
             <form>
-                <p>Add more to list: <input type = "text", class = "details"/> </p>
-                <p>Public post? <input type = "checkbox" class = "isPublic" /> </p>
-                <input type = "button" onclick = "addItem()" value = "Add to List"/>
+                <p>Customer Address <input type = "text" class = "account"\> </p>
+                <input type = "button" onclick = getBalance() value = "Get Account Balance"/> 
             </form>
-        <table border = "1px" width = "100%" id = "itemtable">
-            <tr>
-                <th>Id</th>
-                <th>Details</th>
-                <th>Post Time</th>
-                <th>Edit Time</th>
-                <th>Edit</th>
-                <th>Delete</th>
-                <th>Public Post</th>
-            </tr>
-        </table>
+            <div>
+                <span class = "balance"></span>
+            </div>
+            <form>
+                <!-- form to submit a pop -->
+                <p>Customer Address <input type = "text" class = "customerAddress"/> </p>
+                <p>Business Address <input type = "text" class = "businessAddress" /> </p>
+                <p>Purchase Amount <input type = "number" class = "popAmt"/></p>
+                <input type = "button" onclick="addPOP()" value = "Submit Proof of Purchase"/>
+            </form>
+            </br>
+            <form>
+                <!-- form to submit a transaction -->
+                <!-- will be a customer to business a majority of time, but labeled as sender and reciver -->
+                <p>Sender Address <input type = "text" class = "sendAddress"/> </p>
+                <p>Recipent Address <input type = "text" class = "recpAddress"/> </p>
+                <p>Amount <input type = "number" class = "txAmount"/></p>
+                <input type = "button" onclick = "addTransaction()" value = "Submit Transaction"/>
+            </form>
+        <!-- possible table to show transaction history, or block history, etc -->
+        
     </body>
 </html>
