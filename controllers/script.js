@@ -63,8 +63,9 @@ function getBalance(){
         document.getElementsByClassName("balance")[0].innerHTML = response.balance;
     }).error(function(response){
         //handle case for account not existing in blockchain thus balance is zero, 
-        //there could be other eeros
-        console.log(account + "is not in chain, and balance is 0");
+        //there could be other errors
+        alert("Error in getting balance");
+        console.log(account + "is not in chain, and balance must be 0");
         document.getElementsByClassName("balance")[0].innerHTML = 0;
     });
 }

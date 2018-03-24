@@ -1,5 +1,4 @@
 const SHA256 = require('crypto-js/sha256');
-//const bc= require('express').Router();
 
 class Transaction{
     constructor(fromAddress, toAddress, amount){
@@ -46,7 +45,7 @@ class Blockchain {
         
         //total number of pop need to create new block
         this.popLimit = 100
-        this.current = 0;
+        this.current = 0; //currentpop
         this.pendingPOP = [];
        
         this.pendingTransactions = [];
@@ -68,17 +67,18 @@ class Blockchain {
         //reset pending transactions
 
         //distribute pop rewards here
-        this.pendingTransactions = [
-        ];
+        this.pendingTransactions = []; //clear pending transactions
+
+        //loop through all pending proof of purchases and create new transaction rewarding carbonlinks propotional to the total current POP
         for(let i = 0; i < this.pendingPOP.length; i++){
             let contributionRatio = this.pendingPOP[i].amount / this.current;
-            console.log(contributionRatio);
-            let reward = contributionRatio * this.miningReward;
-            console.log(reward);
-            console.log(this.pendingPOP[i].customerAddress);
-            this.pendingTransactions.push( new Transaction(null, this.pendingPOP[i].customerAddress, Math.floor(contributionRatio * this.miningReward)));
-            
+            let reward = Math.floor(contributionRatio * this.miningReward);
+            this.pendingTransactions.push( new Transaction(null, this.pendingPOP[i].customerAddress, reward));
+            console.log(this.pendingPOP[i].customerAddress + " has been rewarded " + reward);            
         }
+
+        //reset the block
+        //will need to hanlde the case where a new pop or transaction enter the network during this proccess
         this.current = 0;
         this.pendingPOP = [];
     }
@@ -88,11 +88,11 @@ class Blockchain {
     addPOP(POP){
         this.pendingPOP.push(POP);
         this.current += POP.amount;
-
+        
+        //check to see if difficulty has been met        
         if(this.current >= this.popLimit){
             this.minePendingTransactions();
         }
-        //check to see if difficulty has been met        
     }
     getBalanceOfAddress(address){
         let balance = 0;
@@ -109,6 +109,9 @@ class Blockchain {
         }
         //never returned balance - wes
         return balance;
+
+        //possible create an object holding the current balance of each account?
+        //totally unspend transaction outputs is the proper way, but more can be done here
     }
     isChainValid(){
         for(let i = 1; i< this.chain.length;i++){
@@ -125,20 +128,7 @@ class Blockchain {
     }
 }
 
-/*let cChain = new Blockchain();
-console.log("block successfully started");
-//first is sender second is receiver
-
-cChain.createTransaction(new Transaction('address1','address2',100));
-cChain.createTransaction(new Transaction('address2','address1',50));
-
-cChain.minePendingTransactions('address1');
-
-console.log('\n poops balance is ' + cChain.getBalanceOfAddress('poopsaddress'));
-console.log('going again');
-cChain.minePendingTransactions('poopsaddress');
-console.log('\n poops balance is ' + cChain.getBalanceOfAddress('address1'));
-*/
+//exports for express
 module.exports = {
     Blockchain: Blockchain,
     Transaction: Transaction,
