@@ -13,13 +13,9 @@ function getBalance(){
             account: account[0].value
         }
     }).success(function(response){
-        console.log(account + "has a balance of " + response.balance + "CarbonLinks");
         document.getElementsByClassName("balance")[0].innerHTML = response.balance;
     }).error(function(response){
-        //handle case for account not existing in blockchain thus balance is zero, 
-        //there could be other errors
         alert("Error in getting balance");
-        console.log(account + "is not in chain, and balance must be 0");
         document.getElementsByClassName("balance")[0].innerHTML = 0;
     });
 }
