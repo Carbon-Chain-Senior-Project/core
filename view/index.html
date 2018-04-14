@@ -1,15 +1,13 @@
 <html>
     <head>
-        <title> CarbonChain Home</title>
+        <title> CarbonChain</title>
         <script src = "https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <script src = "./../controllers/script.js"></script>
     </head>
-    <body onload = "getUser()" >
-        <p> Hello! <span class = "username"></span> </p>
-        <p> <a href = "/logout">Logout</a></p>
+    <body>
             <form>
                 <p>Customer Address <input type = "text" class = "account"\> </p>
-                <input type = "button" onclick = getBalance() value = "Get Account Balance"/> 
+                <input type = "button" onclick = "getBalance()" value = "Get Account Balance"/> 
             </form>
             <div>
                 <span class = "balance"></span>
