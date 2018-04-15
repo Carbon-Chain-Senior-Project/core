@@ -1,7 +1,7 @@
 //this script will just handle a single page now,
 //and only have the functions fo rthe blockchain,
 //in the final submission this file will be omited
-let url = "http://localhost:8888";
+let url = "http://ec2-18-222-95-22.us-east-2.compute.amazonaws.com";
 
 function getBalance(){
     var account = document.getElementsByClassName("account");
