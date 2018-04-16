@@ -4,12 +4,13 @@ const port = 8888;
 const path = require('path');
 const bodyParser = require('body-parser');
 const bc = require('./controllers/main'); //import for blockchain
-
+const cors = require('cors');
 //bodyparsers
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+app.use(cors());
 //set up front end, and scripts for jquery and blockchain
 app.use('/view',express.static(path.join(__dirname + './view/')));
 app.use('/controllers',express.static(path.join(__dirname +'/controllers')));
