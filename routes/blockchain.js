@@ -8,6 +8,7 @@ const bc = require('./../controllers/main'); //import class for bc functions
 
  //returns balance of an address
 router.post('/balance', function(req, res, next){
+    console.log(req);
     let balance = req.app.locals.cChain.getBalanceOfAddress(req.body.account);
     console.log(req.body.account + " has a balance of " + balance);
     res.json({balance: balance}); 

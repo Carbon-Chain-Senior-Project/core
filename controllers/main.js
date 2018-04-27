@@ -107,11 +107,8 @@ class Blockchain {
                 }
             }
         }
-        //never returned balance - wes
         return balance;
 
-        //possible create an object holding the current balance of each account?
-        //totally unspend transaction outputs is the proper way, but more can be done here
     }
     isChainValid(){
         for(let i = 1; i< this.chain.length;i++){
@@ -128,7 +125,6 @@ class Blockchain {
     }
 }
 
-//exports for express
 module.exports = {
     Blockchain: Blockchain,
     Transaction: Transaction,

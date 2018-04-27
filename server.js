@@ -5,7 +5,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const bc = require('./controllers/main'); //import for blockchain
 const cors = require('cors');
-//bodyparsers
+
 app.use(bodyParser.urlencoded({
     extended: false
 }));
